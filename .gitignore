@@ -1,0 +1,24 @@
+# Arquivos de build
+/Objects/
+/Output/
+/Debug/
+/Release/
+
+# Arquivos gerados pelo Keil
+*.axf
+*.map
+*.o
+*.d
+*.lst
+*.sct
+*.uvproj
+*.uvopt
+
+# Outros arquivos temporarios
+*.tmp
+*.bak
+*.swp
+
+# Diretorios do Keil
+/Project/
+ 
