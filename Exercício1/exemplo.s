@@ -35,31 +35,77 @@
 ; Função main()
 Start  
 ; Comece o código aqui <======================================================
-	MOV  R0, #65           ; A
+
+Exercicio1
 	
-	MOV  R1, #0x1B00       ; B
-	MOVT R1, #0x1B00       ; B
+;	MOV  R0, #65           ; A
+;	
+;	MOV  R1, #0x1B00       ; B
+;	MOVT R1, #0x1B00       ; B
+;	
+;	LDR  R2, =0x12345678   ; C - MOV R2, #0X5678, MOVT R2, #0X1234
+;	
+;	LDR  R3, =0x20000000   ; D
+;	STR  R0, [R3, #0x40]   ; D
+;	
+;	STR  R1, [R3, #0x44]   ; E
+;	
+;	STR  R2, [R3, #0x48]   ; F
+;	
+;	LDR  R4, =0xF0001      ; G
+;	STR  R4, [R3, #0x4C]   ; G
+;	
+;	MOV  R5, 0xCD; H
+;	STRB R5, [R3, #0x46]   ; H
+;	
+;	LDR  R7, [R3, #0x40]   ; I
+;	
+;	LDR  R8, [R3, #0x48]   ; J
+;	
+;	MOV  R9, R7			   ; K
+
+Exercicio2
 	
-	LDR  R2, =0x12345678   ; C - MOV R2, #0X5678, MOVT R2, #0X1234
+;	MOV  R12, #0xF0               ; A 
+;	ANDS  R0, R12, #2_01010101    ; A
+;	
+;	MOV  R12, #0x11001100         ; B
+;	ANDS R1, R12, #2_00110111     ; B
+;	
+;	LDR  R12, =0x2_10000000       ; C
+;	ANDS R2, R12, #2_00110111     ; C
+;	
+;	MOV R12, #0xFFFF              ; D
+;	LDR  R9, =0x_ABCDABCD         ; D
+;	BICS R3, R9, R12              ; D
 	
-	LDR  R3, =0x20000000   ; D
-	STR  R0, [R3, #0x40]   ; D
+Exercicio3
 	
-	STR  R1, [R3, #0x44]   ; E
+	MOV   R0, #701            ; A
+	LSRS  R0, 5               ; A
 	
-	STR  R2, [R3, #0x48]   ; F
+	MOV   R1, #32067          ; B
+	NEG   R1, R1              ; B
+	LSRS  R2, R1, 4           ; B
+
+	MOV   R3, #701            ; C
+	ASRS  R3, 3               ; C
 	
-	LDR  R4, =0xF0001      ; G
-	STR  R4, [R3, #0x4C]   ; G
+	ASRS  R4, R1, 4           ; D
 	
-	MOV  R5, 0xCD; H
-	STRB R5, [R3, #0x46]   ; H
+	MOV   R4, #255            ; E
+	LSLS  R4, 8               ; E
 	
-	LDR  R7, [R3, #0x40]   ; I
+	MOV   R5, #58982          ; F
+	NEG   R5, R5              ; F
+	LSLS  R5, 18              ; F
 	
-	LDR  R8, [R3, #0x48]   ; J
+	LDR   R6, =0xFABC1234     ; G
+	ROR   R6, 10              ; G
 	
-	MOV  R9, R7			   ; K
+	MOV   R7, #0x4321         ; G
+	RRXS  R7                  ; G
+	RRXS  R7                  ; G
 	
 	NOP
 
