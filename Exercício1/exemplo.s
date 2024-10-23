@@ -67,17 +67,17 @@ Start
 ;Exercicio2
 ;	
 ;	MOV  R12, #0xF0               ; A 
-;	ANDS  R0, R12, #2_01010101    ; A
+;	ANDS R0 , R12, #2_01010101    ; A
 ;	
 ;	MOV  R12, #0x11001100         ; B
-;	ANDS R1, R12, #2_00110111     ; B
+;	ANDS R1 , R12, #2_00110111     ; B
 ;	
 ;	LDR  R12, =0x2_10000000       ; C
-;	ANDS R2, R12, #2_00110111     ; C
+;	ANDS R2 , R12, #2_00110111     ; C
 ;	
-;	MOV R12, #0xFFFF              ; D
-;	LDR  R9, =0x_ABCDABCD         ; D
-;	BICS R3, R9, R12              ; D
+;	MOV  R12, #0xFFFF              ; D
+;	LDR  R9 , =0x_ABCDABCD         ; D
+;	BICS R3 , R9 , R12              ; D
 ;	
 ;Exercicio3
 ;	
@@ -107,33 +107,50 @@ Start
 ;	RRXS  R7                  ; H
 ;	RRXS  R7                  ; H
 	
-Exercicio4
+;Exercicio4
+;	
+;	MOV   R12, #101              ; A
+;	ADDS  R0 , R12, #253         ; A
+;	
+;	MOV   R11, #1500             ; B
+;	MOV   R10, #40543            ; B
+;	ADD   R1 , R10, R11          ; B
+;	
+;	MOV   R9 , #340              ; C
+;	SUBS  R2 , R9 , #123         ; C
+;	
+;	MOV   R8 , #1000             ; D
+;	SUBS  R3 , R8 , #2000        ; D
+;	
+;	MOV   R7 , #54378            ; E 
+;	MOV   R6 , #4                ; E
+;	MUL   R4 , R6 , R7           ; E - similar a essa operação LSL  R4 , R7 , #2 
+;	
+;	LDR   R12, =0x11223344       ; F
+;	LDR   R11, =0x44332211       ; F
+;	UMULL R5 , R6 , R11, R12     ; F
+;	
+;	LDR   R10, =0xFFFF7560       ; G
+;	SDIV  R6 , R10, R8           ; G
+;	
+;	UDIV  R7 , R10, R8           ; H
+
+Exercicio5
 	
-	MOV  R12, #101              ; A
-	ADDS R0 , R12, #253         ; A
+	MOV   R0 , #10                ; A
 	
-	MOV  R11, #1500             ; B
-	MOV  R10, #40543            ; B
-	ADD  R1 , R10, R11          ; B
+	CMP   R0 , #9                 ; B
 	
-	MOV  R9 , #340              ; C
-	SUBS R2 , R9 , #123         ; C
+	ITTE   CS                     ; C
+    MOVCS R1, #50                 ; C.1
+    ADDCS R2, R1, #32             ; C.2
+    MOVCC R3, #75                 ; C.3
 	
-	MOV  R8 , #1000             ; D
-	SUBS R3 , R8 , #2000        ; D
-	
-	MOV  R7 , #54378            ; E 
-	MOV  R6 , #4                ; E
-	MUL  R4 , R6 , R7           ; E - similar a essa operação LSL  R4 , R7 , #2 
-	
-	LDR   R12, =0x11223344      ; F
-	LDR   R11, =0x44332211      ; F
-	UMULL R5 , R6 , R11, R12    ; F
-	
-	LDR  R10, =0xFFFF7560       ; G
-	SDIV R6 , R10, R8           ; G
-	
-	UDIV R7 , R10, R8           ; H
+	CMP   R0 , #11                ; D 
+	ITTE   CS                     ; D
+	MOVCS R1 , #50                ; D.1
+	ADDCS R2 , R1 , #32           ; D.2
+	MOVCC R3 , #75                ; D.3
 	 
 	NOP
 
