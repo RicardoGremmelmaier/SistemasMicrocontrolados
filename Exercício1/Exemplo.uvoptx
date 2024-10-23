@@ -77,7 +77,7 @@
         <tvExpOptDlg>0</tvExpOptDlg>
         <IsCurrentTarget>1</IsCurrentTarget>
       </OPTFL>
-      <CpuCode>4</CpuCode>
+      <CpuCode>0</CpuCode>
       <DebugOpt>
         <uSim>1</uSim>
         <uTrg>0</uTrg>
@@ -143,7 +143,7 @@
         <Mm>
           <WinNumber>1</WinNumber>
           <SubType>10</SubType>
-          <ItemText>0X20000000</ItemText>
+          <ItemText>0x20000000</ItemText>
           <AccSizeX>0</AccSizeX>
         </Mm>
       </MemoryWindow1>
@@ -152,7 +152,7 @@
       </Tracepoint>
       <DebugFlag>
         <trace>0</trace>
-        <periodic>1</periodic>
+        <periodic>0</periodic>
         <aLwin>1</aLwin>
         <aCover>0</aCover>
         <aSer1>0</aSer1>
