@@ -37,7 +37,6 @@ Start
 ; Comece o código aqui <======================================================
 
 ;Exercicio1
-;	
 ;	MOV  R0, #65           ; A
 ;	
 ;	MOV  R1, #0x1B00       ; B
@@ -65,7 +64,6 @@ Start
 ;	MOV  R9, R7			   ; K
 
 ;Exercicio2
-;	
 ;	MOV  R12, #0xF0               ; A 
 ;	ANDS R0 , R12, #2_01010101    ; A
 ;	
@@ -79,8 +77,7 @@ Start
 ;	LDR  R9 , =0x_ABCDABCD         ; D
 ;	BICS R3 , R9 , R12              ; D
 ;	
-;Exercicio3
-;	
+;Exercicio3	
 ;	MOV   R0, #701            ; A
 ;	LSRS  R0, 5               ; A
 ;	
@@ -108,7 +105,6 @@ Start
 ;	RRXS  R7                  ; H
 	
 ;Exercicio4
-;	
 ;	MOV   R12, #101              ; A
 ;	ADDS  R0 , R12, #253         ; A
 ;	
@@ -136,7 +132,6 @@ Start
 ;	UDIV  R7 , R10, R8           ; H
 
 ;Exercicio5
-;	
 ;	MOV   R0 , #10                 ; A
 ;	
 ;	CMP   R0 , #9                  ; B
@@ -152,31 +147,57 @@ Start
 ;	 ADDCS R2 , R1 , #32           ; D.2
 ;	 MOVCC R3 , #75                ; D.3
 
-Exercicio6
+;Exercicio6	
+;	MOV  R0 , #10                   ; A
+;	
+;	LDR  R1 , =0xFF11CC22           ; B
+;	
+;	MOV  R2 , #1234                 ; C
+;	
+;	MOV  R3 , #0x300                ; D
+;	
+;	PUSH {R0}                       ; E
+;	
+;	PUSH {R1}                       ; F
+;	PUSH {R2}                       ; F
+;	PUSH {R3}                       ; F
+;	
+;	MOV  R1 , #60                   ; H
+;	
+;	MOV  R2 , #0x1234               ; I
+;	
+;	POP {R3}                        ; J
+;	POP {R2}                        ; J
+;	POP {R1}                        ; J
+;	POP {R0}                        ; J
+
+Exercicio7
+	MOV  R0 , #10                    ; A
+
+Soma5
+	ADD  R0 , #5                     ; B
 	
-	MOV  R0 , #10                   ; A
 	
-	LDR  R1 , =0xFF11CC22           ; B
+	CMP  R0 , #50                    ; C
+	BNE  Soma5                       ; C
 	
-	MOV  R2 , #1234                 ; C
+	BL Func                          ; D
+	NOP                              ; E
+	B Fim                            ; F
 	
-	MOV  R3 , #0x300                ; D
+Func
+	MOV  R1 , R0                     ; D.1
 	
-	PUSH {R0}                       ; E
+	CMP R1 , #50                     ; D.2
 	
-	PUSH {R1}                       ; F
-	PUSH {R2}                       ; F
-	PUSH {R3}                       ; F
-	
-	MOV  R1 , #60                   ; H
-	
-	MOV  R2 , #0x1234               ; I
-	
-	POP {R3}                        ; J
-	POP {R2}                        ; J
-	POP {R1}                        ; J
-	POP {R0}                        ; J
-	
+	ITEE   CC                        ; D.3
+	 ADDCC  R1 , #1                  ; D.3
+	 MOVCS  R1 , #50                 ; D.3
+	 NEGCS  R1 , R1                  ; D.3
+	 
+	BX LR                            ; E
+	 
+Fim
 	NOP
 
     ALIGN                           ; garante que o fim da seção está alinhada 
