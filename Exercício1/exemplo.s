@@ -135,23 +135,48 @@ Start
 ;	
 ;	UDIV  R7 , R10, R8           ; H
 
-Exercicio5
+;Exercicio5
+;	
+;	MOV   R0 , #10                 ; A
+;	
+;	CMP   R0 , #9                  ; B
+;	
+;	ITTE   CS                      ; C
+;    MOVCS R1, #50                 ; C.1
+;    ADDCS R2, R1, #32             ; C.2
+;    MOVCC R3, #75                 ; C.3
+;	
+;	CMP   R0 , #11                 ; D 
+;	ITTE   CS                      ; D
+;	 MOVCS R1 , #50                ; D.1
+;	 ADDCS R2 , R1 , #32           ; D.2
+;	 MOVCC R3 , #75                ; D.3
+
+Exercicio6
 	
-	MOV   R0 , #10                ; A
+	MOV  R0 , #10                   ; A
 	
-	CMP   R0 , #9                 ; B
+	LDR  R1 , =0xFF11CC22           ; B
 	
-	ITTE   CS                     ; C
-    MOVCS R1, #50                 ; C.1
-    ADDCS R2, R1, #32             ; C.2
-    MOVCC R3, #75                 ; C.3
+	MOV  R2 , #1234                 ; C
 	
-	CMP   R0 , #11                ; D 
-	ITTE   CS                     ; D
-	MOVCS R1 , #50                ; D.1
-	ADDCS R2 , R1 , #32           ; D.2
-	MOVCC R3 , #75                ; D.3
-	 
+	MOV  R3 , #0x300                ; D
+	
+	PUSH {R0}                       ; E
+	
+	PUSH {R1}                       ; F
+	PUSH {R2}                       ; F
+	PUSH {R3}                       ; F
+	
+	MOV  R1 , #60                   ; H
+	
+	MOV  R2 , #0x1234               ; I
+	
+	POP {R3}                        ; J
+	POP {R2}                        ; J
+	POP {R1}                        ; J
+	POP {R0}                        ; J
+	
 	NOP
 
     ALIGN                           ; garante que o fim da seção está alinhada 
