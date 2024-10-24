@@ -183,7 +183,7 @@ Soma5
 	
 	BL Func                          ; D
 	NOP                              ; E
-	B Fim                            ; F
+	B Exercicio7                     ; F
 	
 Func
 	MOV  R1 , R0                     ; D.1
