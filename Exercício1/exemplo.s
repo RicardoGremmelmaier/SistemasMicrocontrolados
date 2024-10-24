@@ -171,31 +171,34 @@ Start
 ;	POP {R1}                        ; J
 ;	POP {R0}                        ; J
 
-Exercicio7
-	MOV  R0 , #10                    ; A
+;Exercicio7
+;	MOV  R0 , #10                    ; A
 
-Soma5
-	ADD  R0 , #5                     ; B
+;Soma5
+;	ADD  R0 , #5                     ; B
+;	
+;	
+;	CMP  R0 , #50                    ; C
+;	BNE  Soma5                       ; C
+;	
+;	BL Func                          ; D
+;	NOP                              ; E
+;	B Fim                            ; F
+;	
+;Func
+;	MOV  R1 , R0                     ; D.1
+;	
+;	CMP R1 , #50                     ; D.2
+;	
+;	ITEE   CC                        ; D.3
+;	 ADDCC  R1 , #1                  ; D.3
+;	 MOVCS  R1 , #50                 ; D.3
+;	 NEGCS  R1 , R1                  ; D.3
+;	 
+;	BX LR                            ; E
+
+Exercicio8
 	
-	
-	CMP  R0 , #50                    ; C
-	BNE  Soma5                       ; C
-	
-	BL Func                          ; D
-	NOP                              ; E
-	B Fim                            ; F
-	
-Func
-	MOV  R1 , R0                     ; D.1
-	
-	CMP R1 , #50                     ; D.2
-	
-	ITEE   CC                        ; D.3
-	 ADDCC  R1 , #1                  ; D.3
-	 MOVCS  R1 , #50                 ; D.3
-	 NEGCS  R1 , R1                  ; D.3
-	 
-	BX LR                            ; E
 	 
 Fim
 	NOP
