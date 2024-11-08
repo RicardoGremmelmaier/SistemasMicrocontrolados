@@ -13,6 +13,11 @@
 *.sct
 *.uvproj
 *.uvopt
+*.uvguix.*
+*.htm
+*.dep
+*.scvd
+*.lnp
 
 # Outros arquivos temporarios
 *.tmp
