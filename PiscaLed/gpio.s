@@ -76,9 +76,9 @@ EsperaGPIO 	LDR 		R1, [R0]						  ; Lê da memória o conteúdo do endereço do regi
 			
 ; Limpar o AMSEL
 			MOV 		R1, #0x00						  ; Coloca 0 no registrador para desabilitar função analógica
-			LDR 		R0, #GPIO_PORTJ_AHB_AMSEL_R		  ; Coloca o endereço do AMSEL para o port J
+			LDR 		R0, =GPIO_PORTJ_AHB_AMSEL_R		  ; Coloca o endereço do AMSEL para o port J
 			STR 		R1, [R0]						  ; Zera os bits do AMSEL da porta J
-			LDR 		R0, ##GPIO_PORTN_AHB_AMSEL_R	  ; Coloca o endereço do AMSEL para o port N
+			LDR 		R0, =GPIO_PORTN_AHB_AMSEL_R	 	  ; Coloca o endereço do AMSEL para o port N
 			STR 		R1, [R0]						  ; Zera os bits do AMSEL da porta N
 	
 ; Limpar PCTL
@@ -89,17 +89,50 @@ EsperaGPIO 	LDR 		R1, [R0]						  ; Lê da memória o conteúdo do endereço do regi
 			STR 		R1, [R0]						  ; Zera os bits do PCTL da porta N
 			
 ; DIR 0 para entrada e DIR 1 para saída
+			LDR 		R0, =GPIO_PORTN_AHB_DIR_R 		  ; Coloca o endereço do DIR para o port N (led)
+			MOV 		R1, #2_00000001					  ; PN0 ativo, saída do LED
+			STR 		R1, [R0]						  ; Coloca esse bit de saída no DIR
 			
+			LDR 		R0, =GPIO_PORTJ_AHB_DIR_R		  ; Coloca o endereço do DIR para o port J (push button)
+			MOV 		R1, #0x00						  ; Todos os bits são entrada, só usaremos o PJ0
+			STR 		R1, [R0]						  ; Coloca todos os bits como entrada
+
+; Limpar o AFSEl para não ter função alternativa
+			MOV     R1, #0x00							  ; Colocar o valor 0 para não setar função alternativa
+            LDR     R0, =GPIO_PORTN_AHB_AFSEL_R			  ; Carrega o endereço do AFSEL da porta N
+            STR     R1, [R0]							  ; Limpa os bits
+            LDR     R0, =GPIO_PORTJ_AHB_AFSEL_R    	      ; Carrega o endereço do AFSEL da porta J
+            STR     R1, [R0]                        	  ; Limpa os bits
+
+; Setar o DEN para habilitar os pinos digitais
+			LDR 	R0, =GPIO_PORTN_AHB_DEN_R			  ; Carrega o endereço do DEN para a porta N
+			MOV 	R1, #00000001						  ; Ativa a PN0 para ser digital
+			STR		R1, [R0]							  ; Seta o bit digital para PN0
+			LDR 	R0, =GPIO_PORTJ_AHB_DEN_R			  ; Carrega o endereço do DEN para a porta J
+			MOV 	R1, #00000001						  ; Ativa a PJ0 para ser digital
+			STR		R1, [R0]							  ; Seta o bit digital para PJ0
+			
+; Habilitar resistor pull up para o push button
+			LDR 	R0, =GPIO_PORTJ_AHB_PUR_R 			  ; Carrega o endereço do PUR para a porta J
+			MOV 	R1, #2_00000001					  ; Seta o bit do PJ0 para utilizar o PUR
+			STR 	R1, [R0]							  ; Salva o bit setado no PUR da porta J
+			
+; fim do setup dos registradores
 			BX LR 
 
 ; -------------------------------------------------------------------------------
 ; Função PortN_Output
-; Parâmetro de entrada: 
+; Parâmetro de entrada: R0 -> Se o BIT0 da
 ; Parâmetro de saída: Não tem
 PortN_Output
 ; ****************************************
 ; Escrever função que acende ou apaga o LED
 ; ****************************************
+	LDR R1, =GPIO_PORTN_AHB_DATA_R 		; Le o endereço do data
+	LDR R2, [R1] 						; Pega o valor do data
+	BIC R2, #2_00000001					; Limpa o bit0, que vamos ler
+	ORR R0, R0, R2					    ; Faz o OR pra salvar o novo bit 
+	LDR R0, [R1]						; Escreve na porta o novo valor, com o bit salvo
 	
 	BX LR
 ; -------------------------------------------------------------------------------
@@ -111,6 +144,8 @@ PortJ_Input
 ; Escrever função que lê a chave e retorna 
 ; um registrador se está ativada ou não
 ; ****************************************
+	LDR	R1, =GPIO_PORTJ_AHB_DATA_R		    ;Carrega o valor do offset do data register
+	LDR R0, [R1]                            ;Lê no barramento de dados o pino [J0]
 	
 	BX LR
 
