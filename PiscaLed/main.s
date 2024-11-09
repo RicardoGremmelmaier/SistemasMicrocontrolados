@@ -58,8 +58,22 @@ MainLoop
 ; Escrever código que lê o estado da chave, se ela estiver desativada apaga o LED
 ; Se estivar ativada chama a subrotina Pisca_LED
 ; ****************************************
-	B MainLoop
+	B 	MainLoop
+	BL 	PortJ_Input 				 ;Inicia lendo o pushbutton e toma a medida a partir da leitura
 
+VerificaNenhuma
+	CMP R0, #2_00000001			 	 ;Caso pb não esteja ativo, desliga o led e volta pro main loop
+	BNE VerificaUma
+	MOV R0, #0
+	BL 	PortN_Output
+	B 	MainLoop
+
+VerificaUma
+	CMP R0, #2_00000000 		 	 ;Caso pb esteja ativo, chama a função piscaLed
+	BNE MainLoop
+	BL 	Pisca_LED
+	B 	MainLoop
+	
 ;--------------------------------------------------------------------------------
 ; Função Pisca_LED
 ; Parâmetro de entrada: Não tem
@@ -69,7 +83,18 @@ Pisca_LED
 ; Escrever função que acende o LED, espera 1 segundo, apaga o LED e espera 1 s
 ; Esta função deve chamar a rotina SysTick_Wait1ms com o parâmetro de entrada em R0
 ; ****************************************
-
+	MOV 	R0, #2_1 					 ; Valor do bit do pb no port para acender
+	PUSH	{LR}						 ; Salva o retorno do link register para não perder fluxo
+	BL PortN_Output						 ; Liga o Led
+	MOV 	R0, #1000					 ; Seta quantidade de 1ms para esperar
+	BL SysTick_Wait1ms					 ; Espera 1s
+	MOV 	R0, #2_0 					 ; Apagar o bit do led
+	BL PortN_Output						 ; Desliga led
+	MOV 	R0, #1000 					 ; Seta a quantidade de 1ms para esperar
+	BL SysTick_Wait1ms					 ; Espera 1s
+	POP 	{LR}						 ; Retorna o LinkRegister
+	BX LR
+	
 ; -------------------------------------------------------------------------------------------------------------------------
 ; Fim do Arquivo
 ; -------------------------------------------------------------------------------------------------------------------------	
